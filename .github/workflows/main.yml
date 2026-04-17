@@ -8,15 +8,21 @@ on:
 
 # Jobs in workflow
 jobs:
-  # Job name
+  # Job 1
   greet:
-    # Runner
     runs-on: ubuntu-latest
 
-    # Steps inside job
     steps:
       - name: Say hello to user
         run: echo "hello dosto"
 
       - name: Say hello to username
         run: echo "hello ${{ github.actor }}"
+
+  # Job 2
+  details:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Version of Python and Docker
+        run: docker --version && python3 --version
