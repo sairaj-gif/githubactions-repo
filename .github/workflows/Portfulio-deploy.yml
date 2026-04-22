@@ -23,7 +23,7 @@ jobs:
 
       # Setup GitHub Pages
       - name: Setup GitHub Pages
-        uses: actions/configure-github-pages@v4
+        uses: actions/configure-pages@v4 
 
       # Upload files
       - name: Upload Static Files
