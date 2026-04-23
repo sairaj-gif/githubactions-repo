@@ -3,8 +3,7 @@ name: hello
 
 # Runs on triggers
 on:
-  push:
-    branches: [main]
+  workflow_dispatch: 
 
 # Jobs in workflow
 jobs:
