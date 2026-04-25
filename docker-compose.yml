@@ -1,5 +1,5 @@
 services:
   web:
-    image: ${ DOCKERHUB_USER }/action-docker:latest
+    image: ${DOCKERHUB_USER}/action-docker:latest
     ports:
       - "80:80"
