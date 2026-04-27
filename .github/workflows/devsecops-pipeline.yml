@@ -23,3 +23,9 @@ jobs:
   deploy:
     needs: [code-quality, dependency-scan, secret-scan, image-scan]
     uses: ./.github/workflows/deploy-to-server.yml
+    secrets: inherit
+
+  trivy:
+    needs: [deploy]
+    uses: ./.github/workflows/image-scan.yml
+    secrets: inherit
