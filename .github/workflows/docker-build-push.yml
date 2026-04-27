@@ -1,6 +1,6 @@
 name: Docker Build and Push
 on:
-  workflow_dispatch:
+  workflow_call:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -21,5 +21,6 @@ jobs:
           context: . 
           push: true
           tags: |
+            ${{ vars.DOCKER_HUB_USER }}/action-docker:${{ github.ref }}
             ${{ vars.DOCKER_HUB_USER }}/action-docker:latest
             ${{ vars.DOCKER_HUB_USER }}/action-docker:${{ github.sha }}
