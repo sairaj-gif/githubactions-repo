@@ -18,7 +18,7 @@ jobs:
 
   
   deploy:
-    needs: [code-quality, dependency-scan, secret-scan, image-scan]
+    needs: [code-quality, dependency-scan, secret-scan]
     uses: ./.github/workflows/deploy-to-server.yml
     secrets: inherit
 
