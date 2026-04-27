@@ -17,8 +17,10 @@ jobs:
           username: ${{ vars.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
-       - name: trivy image scan
-         uses: aquasecurity/trivy-action@v0.33.1
+       - name: Run Trivy Image Scan
+         uses: aquasecurity/trivy-action@0.20.0
          with:
-          severity: 'CRITICAL'
-          exit-code: '1'   
+           image-ref: ${{ vars.DOCKER_HUB_USER }}/ ${{ vars.DOCKER_HUB_USER }}/action-docker:latest
+           format: 'table'
+           severity: 'CRITICAL'
+           exit-code: '1'
