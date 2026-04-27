@@ -1,0 +1,18 @@
+#this will deploy the safe,secure,tested app to prod server 
+name: deploy to server
+on:
+  workflow_call:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to server 
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.EC2_SSH_HOST}}
+          username: ${{secrets.EC2_SSH_USERNAME}}
+          key: ${{secrets.EC2_SSH_KEY}}
+          script: |
+            echo "starting deployment"
+            mkdir devops
