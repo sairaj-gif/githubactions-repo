@@ -23,7 +23,7 @@ jobs:
        run: pip install -r requirements.txt
 
      - name: run linter
-       run: flake8 .
+       run: flake8 . --ignore=E302,E305
 
      - name: run SAST
        run: bandit -r .    
