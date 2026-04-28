@@ -1,26 +1,29 @@
 name: image-scan
+
 on:
   workflow_call:
-  workflow_dispatch:
     secrets:
       DOCKER_HUB_USER:
         required: true
       DOCKER_HUB_PASSWORD:
         required: true
+  workflow_dispatch:
+
 jobs:
   image-scanner:
     runs-on: ubuntu-latest
     steps:
-       - name: Log in to Docker Hub
-         uses: docker/login-action@v3
-         with:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
           username: ${{ vars.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          
-       - name: Run Trivy Image Scan
-         uses: aquasecurity/trivy-action@v0.33.1
-         with:
-           image-ref: ${{ vars.DOCKER_HUB_USER }}/ ${{ vars.DOCKER_HUB_USER }}/action-docker:latest
-           format: 'table'
-           severity: 'CRITICAL'
-           exit-code: '1'
+
+      - name: Run Trivy
+        uses: aquasecurity/trivy-action@v0.33.1
+        env:
+          TRIVY_SKIP_UPDATE: true
+        with:
+          image-ref: ${{ secrets.DOCKER_HUB_USER }}/action-docker:latest
+          severity: CRITICAL
+          exit-code: '1'
