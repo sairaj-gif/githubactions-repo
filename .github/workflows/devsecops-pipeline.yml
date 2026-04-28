@@ -25,4 +25,6 @@ jobs:
   trivy:
     needs: [deploy]
     uses: ./.github/workflows/image-scan.yml
-    secrets: inherit
+    secrets: 
+      DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
