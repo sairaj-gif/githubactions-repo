@@ -26,5 +26,5 @@ jobs:
     needs: [deploy]
     uses: ./.github/workflows/image-scan.yml
     secrets: 
-      DOCKER_HUB_USER: ${{ vars.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      DOCKER_HUB_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
