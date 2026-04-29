@@ -2,6 +2,11 @@ name: image-scan
 
 on:
   workflow_call:
+   secrets:
+      DOCKER_HUB_USER:
+        required: true
+      DOCKER_HUB_PASSWORD:
+        required: true
   workflow_dispatch:
 
 jobs:
