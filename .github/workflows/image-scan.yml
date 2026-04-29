@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  image-scanner:GIT 
+  image-scanner:
     runs-on: ubuntu-latest
     steps:
       - name: Log in to Docker Hub
