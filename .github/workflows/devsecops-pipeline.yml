@@ -16,15 +16,9 @@ jobs:
   docker-lint:
     uses: ./.github/workflows/docker-lint.yml
 
-  
-  deploy:
+  build:
     needs: [code-quality, dependency-scan, secret-scan]
-    uses: ./.github/workflows/deploy-to-server.yml
+    uses: ./.github/workflows/docker-build-push.yml
     secrets: inherit
 
-  trivy:
-    needs: [deploy]
-    uses: ./.github/workflows/image-scan.yml
-    secrets:
-       DOCKER_HUB_USER: ${{ vars.DOCKER_HUB_USER }}
-       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_PASSWORD}}
+  
