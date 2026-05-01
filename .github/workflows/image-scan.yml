@@ -18,14 +18,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Install Trivy
-        uses: aquasecurity/setup-trivy@v0.1.2   
-      - name: Run Trivy
-        uses: aquasecurity/trivy-action@v0.33.1
-        with:
-         image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/action-docker:latest
-         format: table
-         severity: CRITICAL
-         ignore-unfixed: true
-         exit-code: '1'
-         skip-setup-trivy: true
+
+      - name: Run Trivy Scan
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $HOME/.cache:/root/.cache \
+            aquasec/trivy:latest image \
+            --severity CRITICAL \
+            --ignore-unfixed \
+            --exit-code 1 \
+            --format table \
+            ${{ secrets.DOCKERHUB_USERNAME }}/action-docker:latest
