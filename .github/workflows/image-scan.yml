@@ -18,7 +18,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+      - name: Install Trivy
+        uses: aquasecurity/setup-trivy@v0.2.0
       - name: Run Trivy
         uses: aquasecurity/trivy-action@v0.33.1
         with:
