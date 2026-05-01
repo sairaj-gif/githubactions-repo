@@ -1,11 +1,30 @@
-    FROM python:3.9-slim
+   # Use newer, more secure base image
+FROM python:3.11-slim
 
-    WORKDIR /app
+# Prevent Python from writing .pyc files & enable logs
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-    COPY . .
+# Set working directory
+WORKDIR /app
 
-    RUN pip install --no-cache-dir -r requirements.txt
+# Install system dependencies (if needed)
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
-    EXPOSE 80
+# Copy only requirements first (for caching)
+COPY requirements.txt .
 
-    CMD ["python", "app.py"]
+# Upgrade pip + install dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy remaining app files
+COPY . .
+
+# Expose port
+EXPOSE 80
+
+# Run app
+CMD ["python", "app.py"]
