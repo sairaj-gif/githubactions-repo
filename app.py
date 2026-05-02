@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return 'Server is up and running'
+    return render_templates('index.html')
