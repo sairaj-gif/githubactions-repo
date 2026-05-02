@@ -51,5 +51,5 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/action-docker:latest
 
             # Run container
-            sudo docker compose down || true
-            sudo docker compose up -d
+            sudo docker-compose down || true
+            sudo docker-compose up -d
