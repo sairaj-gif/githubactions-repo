@@ -21,7 +21,6 @@ jobs:
           source: "docker-compose.yml"
           target: "~/devops-app"
 
-      # ✅ SSH and deploy
       - name: Deploy application
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -38,15 +37,19 @@ jobs:
             if ! command -v docker &> /dev/null
             then
               sudo apt-get update
-              sudo apt-get install -y docker.io docker-compose
+              sudo apt-get install -y docker.io docker-compose-plugin
             fi
 
+            # Start Docker
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
             # Login to Docker Hub
-            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
             # Pull latest image
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/action-docker:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/action-docker:latest
 
-            # Run container using docker compose
-            docker compose down || true
-            docker compose up -d
+            # Run container
+            sudo docker compose down || true
+            sudo docker compose up -d
